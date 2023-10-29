@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "215818927351",
+    "project_id": "pr20g-af23c",
+    "storage_bucket": "pr20g-af23c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:215818927351:android:97eae8793cf81e684ea7f2",
+        "android_client_info": {
+          "package_name": "com.example.pr20_glairinng"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-y6gWBA0PRqb-zSicLub6ToDgWiIsvx0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
