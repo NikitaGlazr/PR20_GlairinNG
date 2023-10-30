@@ -17,45 +17,32 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
-    // creating variables for our edit text
     private EditText courseNameEdt, courseDurationEdt, courseDescriptionEdt;
 
-    // creating variable for button
     private Button submitCourseBtn;
 
-    // creating a strings for storing
-    // our values from edittext fields.
     private String courseName, courseDuration, courseDescription;
 
-    // creating a variable
-    // for firebasefirestore.
     private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // getting our instance
-        // from Firebase Firestore.
         db = FirebaseFirestore.getInstance();
 
-        // initializing our edittext and buttons
         courseNameEdt = findViewById(R.id.idEdtCourseName);
         courseDescriptionEdt = findViewById(R.id.idEdtCourseDescription);
         courseDurationEdt = findViewById(R.id.idEdtCourseDuration);
         submitCourseBtn = findViewById(R.id.idBtnSubmitCourse);
 
-        // adding on click listener for button
         submitCourseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // getting data from edittext fields.
                 courseName = courseNameEdt.getText().toString();
                 courseDescription = courseDescriptionEdt.getText().toString();
                 courseDuration = courseDurationEdt.getText().toString();
-
-                // validating the text fields if empty or not.
+                
                 if (TextUtils.isEmpty(courseName)) {
                     courseNameEdt.setError("Пожалуйста, введите название курса");
                 } else if (TextUtils.isEmpty(courseDescription)) {
@@ -63,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 } else if (TextUtils.isEmpty(courseDuration)) {
                     courseDurationEdt.setError("Пожалуйста, укажите продолжительность курса");
                 } else {
-                    // calling method to add data to Firebase Firestore.
                     addDataToFirestore(courseName, courseDescription, courseDuration);
                 }
             }
@@ -71,27 +57,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addDataToFirestore(String courseName, String courseDescription, String courseDuration) {
-
-        // creating a collection reference
-        // for our Firebase Firestore database.
         CollectionReference dbCourses = db.collection("Courses");
-
-        // adding our data to our courses object class.
         Courses courses = new Courses(courseName, courseDescription, courseDuration);
-
-        // below method is use to add data to Firebase Firestore.
         dbCourses.add(courses).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                // after the data addition is successful
-                // we are displaying a success toast message.
                 Toast.makeText(MainActivity.this, "Ваш курс был добавлен в Firebase Firestore", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                // this method is called when the data addition process is failed.
-                // displaying a toast message when data addition is failed.
                 Toast.makeText(MainActivity.this, "Не удалось добавить курс \n" + e, Toast.LENGTH_SHORT).show();
             }
         });
